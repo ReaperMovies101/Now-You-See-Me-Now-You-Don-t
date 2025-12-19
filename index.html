@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Protected Movie Page</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+    #movie { display: none; margin-top: 20px; }
+    #message { color: red; margin-top: 10px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h2>Enter Password to Watch the Movie</h2>
+  <input type="password" id="passwordInput" placeholder="Enter password">
+  <button onclick="checkPassword()">Submit</button>
+
+  <!-- Message area -->
+  <div id="message"></div>
+
+  <!-- Hidden movie section -->
+  <div id="movie">
+    <h3>Enjoy the Movie!</h3>
+    <iframe src="https://drive.google.com/file/d/19uJHOke2MiBnesEa12Vy70Tfj7wYgZ67/preview" 
+            width="640" height="360" allow="autoplay"></iframe>
+  </div>
+
+  <script>
+    function checkPassword() {
+      const password = document.getElementById("passwordInput").value;
+      const correctPassword = "1234"; // your chosen password
+      const messageBox = document.getElementById("message");
+
+      if (password === correctPassword) {
+        document.getElementById("movie").style.display = "block";
+        messageBox.style.color = "green";
+        messageBox.textContent = "Access granted! Enjoy the movie.";
+      } else {
+        document.getElementById("movie").style.display = "none";
+        messageBox.style.color = "red";
+        messageBox.textContent = "Incorrect password. Please try again.";
+        document.getElementById("passwordInput").value = ""; // clear box
+      }
+    }
+  </script>
+</body>
+</html>
