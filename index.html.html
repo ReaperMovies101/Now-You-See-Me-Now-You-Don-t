@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Protected Movie Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+
+      /* ✅ Movie-themed background (#2) */
+      background-image: url('https://images.unsplash.com/photo-1524985069026-dd778a71c7b4');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+
+    /* ✅ Dark overlay for readability */
+    .overlay {
+      background: rgba(0, 0, 0, 0.65);
+      padding: 40px;
+      border-radius: 10px;
+      display: inline-block;
+    }
+
+    #movie {
+      display: none;
+      margin-top: 20px;
+    }
+
+    #message {
+      color: red;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    iframe {
+      border: none;
+      max-width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="overlay">
+    <h2 style="color: white;">Enter Password to Watch the Movie</h2>
+    <input type="password" id="passwordInput" placeholder="Enter password">
+    <button onclick="checkPassword()">Submit</button>
+
+    <div id="message"></div>
+
+    <div id="movie">
+
+      <!-- ✅ ONE “Enjoy the Movie!” kept -->
+      <h3 style="color: white;">Enjoy the Movie!</h3>
+
+      <!-- ✅ Updated with your NEW Google Drive link -->
+      <iframe 
+        src="https://drive.google.com/file/d/1PhDuuYamW7bORhMph3a1c5xpKVCTzfbo/preview" 
+        width="640" height="360"
+        allow="autoplay; fullscreen"
+        allowfullscreen>
+      </iframe>
+
+    </div>
+  </div>
+
+  <script>
+    function checkPassword() {
+      const password = document.getElementById("passwordInput").value;
+      const correctPassword = "1234";
+      const messageBox = document.getElementById("message");
+
+      if (password === correctPassword) {
+        document.getElementById("movie").style.display = "block";
+        messageBox.style.color = "lightgreen";
+        messageBox.textContent = "Access granted!";
+      } else {
+        document.getElementById("movie").style.display = "none";
+        messageBox.style.color = "red";
+        messageBox.textContent = "Incorrect password. Please try again.";
+        document.getElementById("passwordInput").value = "";
+      }
+    }
+
+    /* ✅ DevTools / Inspect / F12 Protection (with delay) */
+    setTimeout(() => {
+
+      // F12 key
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "F12") {
+          window.location.href = "restart.html";
+        }
+      });
+
+      // Ctrl+Shift+I
+      document.addEventListener("keydown", function (e) {
+        if (e.ctrlKey && e.shiftKey && e.key === "I") {
+          window.location.href = "restart.html";
+        }
+      });
+
+      // Detect DevTools opening
+      let devtools = false;
+      const element = new Image();
+      Object.defineProperty(element, 'id', {
+        get: function () {
+          devtools = true;
+          window.location.href = "restart.html";
+        }
+      });
+
+      console.log(element);
+
+    }, 1000); // ✅ 1 second delay
+  </script>
+
+</body>
+</html>
